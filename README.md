@@ -209,3 +209,24 @@ curl -X GET localhost:8080/todo
     }
 ]
 ```
+
+### Debugging the Docker container
+
+```
+docker ps
+docker exec -it <CONTAINER id> /bin/bash
+```
+
+* Output
+
+```
+root@...:/app#
+
+root@...:/app# ls
+Dockerfile  README.md  db.sqlite3  manage.py  requirements.txt  todo_api  todo_app
+
+root@...:/app# pwd
+/app
+
+root@...:/app# exit
+```
