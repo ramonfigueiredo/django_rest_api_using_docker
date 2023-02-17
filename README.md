@@ -50,23 +50,26 @@ Password (again): <PASSWORD HERE>
 
 **Note:** To access the ```/admin``` page run the system (```python manage.py runserver```) and open ```http://127.0.0.1:8000/admin```
 
-5) Run the Django system (API)
+## Running the API
 
-* Run the Django system
+1) Run the Django system (API)
 
 ```
 python manage.py runserver
 ```
+2) Open the ```index``` page: 
 
-* Open the ```index``` page: http://127.0.0.1:8000/
+* Index page: http://127.0.0.1:8000/
 
-6) Open the API
+3) Open the API
 
 * API-URL: http://127.0.0.1:8000/todo
 
-7) Testing the API
+## Testing the API
 
 The API can be tested using ```curl``` or tools like [Postman](https://www.postman.com/).
+
+### GET and POST using ```curl```
 
 1) [GET] Endpoint to list all TODO tasks: **API-URL/todo**
 
@@ -75,6 +78,8 @@ curl http://127.0.0.1:8000/todo
 ```
 
 2) [POST] Endpoint to create a TODO task: POST **API-URL/todo**
+
+***Note:*** Change the values of "task" and "completed" below before use the ```curl``` command.
 
 ```
 curl -X POST http://localhost:8000/todo -H "Content-Type: application/json" -d '{"task": "Task Name 1", "completed": "False"}'
