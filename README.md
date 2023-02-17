@@ -93,37 +93,57 @@ Follow the instructions available on: https://docs.docker.com/engine/install/ubu
 
 ### Build the Docker project
 
+#### Python 3.7
 ```
 docker build -t django_project .
 ```
 
-* Output:
+* Output Dockerfile using ```FROM python:3.7-alpine```
 
 ```
-[+] Building 20.3s (4/9)                                                                                                                                                                                                       
-[+] Building 20.4s (4/9)                                                                                                                                                                                                       
- => [internal] load build definition from Dockerfile                                                                                                                                                                      0.6s
- => => transferring dockerfile: 540B                                                                                                                                                                                      0.0s
-[+] Building 20.5s (4/9)                                                                                                                                                                                                       
-[+] Building 72.8s (10/10) FINISHED                                                                                                                                                                                            
+[+] Building 14.0s (10/10) FINISHED                                                                                                                                                                                            
+ => [internal] load .dockerignore                                                                                                                                                                                         0.3s
+ => => transferring context: 44B                                                                                                                                                                                          0.0s
+ => [internal] load build definition from Dockerfile                                                                                                                                                                      0.4s
+ => => transferring dockerfile: 548B                                                                                                                                                                                      0.0s
+ => [internal] load metadata for docker.io/library/python:3.7-alpine                                                                                                                                                      0.7s
+ => [1/5] FROM docker.io/library/python:3.7-alpine@sha256:...                                                                                                0.0s
+ => [internal] load build context                                                                                                                                                                                         0.2s
+ => => transferring context: 22.32kB                                                                                                                                                                                      0.0s
+ => CACHED [2/5] RUN mkdir /code                                                                                                                                                                                          0.0s
+ => CACHED [3/5] WORKDIR /code                                                                                                                                                                                            0.0s
+ => [4/5] COPY . /code/                                                                                                                                                                                                   1.4s
+ => [5/5] RUN pip install -r requirements.txt                                                                                                                                                                             9.9s
+ => exporting to image                                                                                                                                                                                                    1.2s
+ => => exporting layers                                                                                                                                                                                                   1.1s
+ => => writing image sha256:...                                                                                                                              0.1s 
+ => => naming to docker.io/library/django_project         
+```
+
+#### Python 2.7
+
+* Output Dockerfile using ```FROM python:2.7-alpine```
+
+```
+[+] Building 25.2s (10/10) FINISHED                                                                                                                                                                                            
+ => [internal] load build definition from Dockerfile                                                                                                                                                                      0.3s
+ => => transferring dockerfile: 573B                                                                                                                                                                                      0.0s
  => [internal] load .dockerignore                                                                                                                                                                                         0.4s
  => => transferring context: 44B                                                                                                                                                                                          0.0s
- => [internal] load build definition from Dockerfile                                                                                                                                                                      0.6s
- => => transferring dockerfile: 540B                                                                                                                                                                                      0.0s
- => [internal] load metadata for docker.io/library/python:3                                                                                                                                                               1.9s
- => [internal] load build context                                                                                                                                                                                         0.3s
- => => transferring context: 40.26kB                                                                                                                                                                                      0.0s
- => [1/5] FROM docker.io/library/python:3@sha256:...                                                                                                        40.9s
- => => resolve docker.io/library/python:3@sha256:...                                                                                                         0.4s
+ => [internal] load metadata for docker.io/library/python:2.7-alpine                                                                                                                                                      1.7s
+ => [1/5] FROM docker.io/library/python:2.7-alpine@sha256:                                                                                                5.8s
+ => => resolve docker.io/library/python:2.7-alpine@sha256:                                                                                                0.3s
  ...
- => [2/5] RUN mkdir /code                                                                                                                                                                                                15.7s
+ => [internal] load build context                                                                                                                                                                                         0.3s
+ => => transferring context: 28.73kB                                                                                                                                                                                      0.0s
+ => [2/5] RUN mkdir /code                                                                                                                                                                                                 3.7s
  => [3/5] WORKDIR /code                                                                                                                                                                                                   1.6s
  => [4/5] COPY . /code/                                                                                                                                                                                                   1.0s
- => [5/5] RUN pip install -r requirements.txt                                                                                                                                                                             9.2s
+ => [5/5] RUN pip install -r requirements.txt                                                                                                                                                                             9.0s
  => exporting to image                                                                                                                                                                                                    1.6s
  => => exporting layers                                                                                                                                                                                                   1.5s
- => => writing image sha256:...                                                                                                                              0.1s
- => => naming to docker.io/library/django_project               
+ => => writing image sha256:                                                                                                                              0.0s
+ => => naming to docker.io/library/django_project
 ```
 
 ### See the Docker images
