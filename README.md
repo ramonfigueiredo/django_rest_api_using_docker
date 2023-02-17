@@ -85,7 +85,7 @@ curl http://127.0.0.1:8000/todo
 curl -X POST http://localhost:8000/todo -H "Content-Type: application/json" -d '{"task": "Task Name 1", "completed": "False"}'
 ```
 
-## Running the API using docker
+## Running the API using Docker
 
 ### Install Docker on Ubuntu
 
@@ -93,10 +93,10 @@ Follow the instructions available on: https://docs.docker.com/engine/install/ubu
 
 ### Build the Docker project
 
-#### Python 3.7
+#### Using Python 3.7
 
 ```
-docker build -t django_project .
+docker build -f Dockerfile_python3 -t django_project .
 ```
 
 * Output Dockerfile using ```FROM python:3.7-alpine```
@@ -121,7 +121,9 @@ docker build -t django_project .
  => => naming to docker.io/library/django_project         
 ```
 
-#### Python 2.7
+#### Using Python 2.7
+
+**Note:** Skip this section if you already builded the Docker project with python3.7
 
 ```
 docker build -f Dockerfile_python2 -t django_project .
