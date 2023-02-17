@@ -1,13 +1,16 @@
-## syntax=docker/dockerfile:1
+FROM python:3
 
-FROM python:3.10.6-slim-buster
+# Setting PYTHONUNBUFFERED to a non-empty value different from 0 ensures that the python output i.e. the stdout and
+# stderr streams are sent straight to terminal (e.g. your container log) without being first buffered and that you can
+# see the output of your application (e.g. django logs) in real time.
+ENV PYTHONUNBUFFERED 1
 
-WORKDIR /app
+RUN mkdir /code
 
-COPY requirements.txt requirements.txt
+WORKDIR /code
 
-RUN pip3 install -r requirements.txt
+COPY . /code/
 
-COPY . .
+RUN pip install -r requirements.txt
 
 CMD [ "python3", "manage.py", "runserver", "0.0.0.0:8000", "--noreload"]
