@@ -1,4 +1,4 @@
-FROM python:2.7-alpine
+FROM python:2.7
 
 # Setting PYTHONUNBUFFERED to a non-empty value different from 0 ensures that the python output i.e. the stdout and
 # stderr streams are sent straight to terminal (e.g. your container log) without being first buffered and that you can
@@ -11,8 +11,6 @@ WORKDIR /code
 
 COPY . /code/
 
-RUN pip install -r requirements.txt
-
-RUN apk add --no-cache python2
+RUN pip install -r requirements_python2.txt
 
 CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000", "--noreload"]
