@@ -1,2 +1,5 @@
 Django==1.11
 djangorestframework
+pytest
+pytest-django
+pytest-cov
