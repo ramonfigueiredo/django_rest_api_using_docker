@@ -1,91 +1,56 @@
-# Django REST API using docker
+Django REST API using docker
+===========================
 
-## Installation and setup
+## Contents
+1. [System deployment using Docker Compose](#system-deployment-using-docker-compose)
+2. [System deployment using only Docker](#system-deployment-using-only-docker)
+3. [System deployment on the Linux computer](#system-deployment-on-the-linux-computer)
+4. [Testing the API](#testing-the-api)
+5. [Docker commands](#docker-commands)
+   - [See Docker images](#see-docker-images)
+   - [See Docker container status](#see-docker-container-status)
+   - [Stop Docker container](#stop-docker-container)
+   - [Remove Docker image](#remove-docker-image)
+   - [Open Docker container bash](#open-docker-container-bash)
 
-1) Create python virtual environment
 
-```
-python3 -m venv venv
-```
 
-2) Activate python virtual environment
+## System deployment using Docker Compose
 
-```
-source venv/bin/activate
-```
+Just run the following command ```docker compose up``` and the api will be availabe in the endpoint ```http://localhost:8000/todo```
 
-3) Install python dependencies
-
-* Upgrade pip
-
-```
-python3 -m pip install --upgrade pip
-```
-
-* Install python dependencies 
-```
-pip install -r requirements.txt
-```
-
-4) Run Django migrations
+### Build and run
 
 ```
-python manage.py migrate
+docker compose up
 ```
 
-5) Create a Django super user to access the database table using the ```/admin``` URL.
+Or
 
+### Run migrations, build and run
 ```
-python manage.py createsuperuser
-```
-
-* Create the admin user (username, email and password)
-
-```
-Username: admin 
-Email address: admin2@gmail.com
-Password: <PASSWORD HERE>
-Password (again): <PASSWORD HERE>
+docker compose run api python manage.py migrate
+docker compose build
+docker compose up
 ```
 
-**Note:** To access the ```/admin``` page run the system (```python manage.py runserver```) and open ```http://127.0.0.1:8000/admin```
-
-## Running the API
-
-1) Run the Django system (API)
+### Testing the API running on the Docker container
 
 ```
-python manage.py runserver
-```
-2) Open the ```index``` page: 
-
-* Index page: http://127.0.0.1:8000/
-
-3) Open the API
-
-* API-URL: http://127.0.0.1:8000/todo
-
-## Testing the API
-
-The API can be tested using ```curl``` or tools like [Postman](https://www.postman.com/).
-
-### GET and POST using ```curl```
-
-1) [GET] Endpoint to list all TODO tasks: **API-URL/todo**
-
-```
-curl http://127.0.0.1:8000/todo
+curl localhost:8000/todo
 ```
 
-2) [POST] Endpoint to create a TODO task: POST **API-URL/todo**
-
-***Note:*** Change the values of "task" and "completed" below before use the ```curl``` command.
+* Output
 
 ```
-curl -X POST http://localhost:8000/todo -H "Content-Type: application/json" -d '{"task": "Task Name 1", "completed": "False"}'
+[{"id":1,"task":"Test 1","completed":true},{"id":2,"task":"Learn Python","completed":true},{"id":3,"task":"Learn Django","completed":true},{"id":4,"task":"Learn Rust","completed":false},{"id":5,"task":"Task 2","completed":false},{"id":6,"task":"Task Name 1","completed":false}]
 ```
 
-## Running the API using Docker
+Go back to [Contents](#contents).
+
+
+
+## System deployment using only Docker
 
 ### Install Docker on Ubuntu
 
@@ -150,19 +115,6 @@ docker build -f Dockerfile_python2 -t django_project .
  => => naming to docker.io/library/django_project 
 ```
 
-### See the Docker images
-
-```
-docker images
-```
-
-* Output
-
-```
-REPOSITORY       TAG       IMAGE ID       CREATED              SIZE
-django_project   latest    <>   About a minute ago   167MB
-```
-
 ### To run the Docker container
 
 ```
@@ -173,26 +125,6 @@ where:
 
 * -p 8080:8000: publish the port 8080 to 8000
 * django_project: name of the docker container
-
-### To see the status of the the Docker container
-
-```
-docker ps
-```
-
-### To stop the Docker container
-
-```
-docker ps
-docker stop <CONTAINER ID>
-```
-
-### To remove the Docker image
-
-```
-docker images
-docker image rm <IMAGE ID> --force
-```
 
 ### Testing the API running on the Docker container
 
@@ -206,37 +138,142 @@ curl -X GET localhost:8080/todo
 [{"id":1,"task":"Test 1","completed":true},{"id":2,"task":"Learn Python","completed":true},{"id":3,"task":"Learn Django","completed":true},{"id":4,"task":"Learn Rust","completed":false},{"id":5,"task":"Task 2","completed":false},{"id":6,"task":"Task Name 1","completed":false}] 
 ```
 
-* Readable JSON
+Go back to [Contents](#contents).
+
+
+
+## System deployment on the Linux computer
+
+## Installation and setup
+
+1) Create python virtual environment
+
 ```
-[
-    {
-        "id":1,"task":"Test 1",
-        "completed":true
-    },
-    {
-        "id":2,"task":"Learn Python",
-        "completed":true
-    },
-    {
-        "id":3,"task":"Learn Django",
-        "completed":true
-    },
-    {
-        "id":4,"task":"Learn Rust",
-        "completed":false
-    },
-    {
-        "id":5,"task":"Task 2",
-        "completed":false
-    },
-    {
-        "id":6,"task":"Task Name 1",
-        "completed":false
-    }
-]
+python3 -m venv venv
 ```
 
-### Debugging the Docker container
+2) Activate python virtual environment
+
+```
+source venv/bin/activate
+```
+
+3) Install python dependencies
+
+* Upgrade pip
+
+```
+python3 -m pip install --upgrade pip
+```
+
+* Install python dependencies 
+```
+pip install -r requirements.txt
+```
+
+4) Run Django migrations
+
+```
+python manage.py migrate
+```
+
+5) Create a Django super user to access the database table using the ```/admin``` URL.
+
+```
+python manage.py createsuperuser
+```
+
+* Create the admin user (username, email and password)
+
+```
+Username: admin 
+Email address: admin@gmail.com
+Password: <PASSWORD HERE>
+Password (again): <PASSWORD HERE>
+```
+
+**Note:** To access the ```/admin``` page run the system (```python manage.py runserver```) and open ```http://127.0.0.1:8000/admin```
+
+## Running the API
+
+1) Run the Django system (API)
+
+```
+python manage.py runserver
+```
+2) Open the ```index``` page: 
+
+* Index page: http://127.0.0.1:8000/
+
+3) Open the API
+
+* API-URL: http://127.0.0.1:8000/todo
+
+Go back to [Contents](#contents).
+
+
+
+## Testing the API
+
+The API can be tested using ```curl``` or tools like [Postman](https://www.postman.com/).
+
+### GET and POST using ```curl```
+
+1) [GET] Endpoint to list all TODO tasks: **API-URL/todo**
+
+```
+curl http://127.0.0.1:8000/todo
+```
+
+2) [POST] Endpoint to create a TODO task: POST **API-URL/todo**
+
+***Note:*** Change the values of "task" and "completed" below before use the ```curl``` command.
+
+```
+curl -X POST http://localhost:8000/todo -H "Content-Type: application/json" -d '{"task": "Task Name 1", "completed": "False"}'
+```
+
+Go back to [Contents](#contents).
+
+
+
+## Docker commands
+
+### See Docker images
+
+```
+docker images
+```
+
+* Output
+
+```
+REPOSITORY       TAG       IMAGE ID       CREATED              SIZE
+django_project   latest    <>   About a minute ago   167MB
+```
+
+### See Docker container status
+
+```
+docker ps
+```
+
+### Stop Docker container
+
+```
+docker ps
+docker stop <CONTAINER ID>
+```
+
+### Remove Docker image
+
+```
+docker images
+docker image rm <IMAGE ID> --force
+```
+
+
+### Open Docker container bash
 
 ```
 docker ps
